@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/TodoView.qml</file>
+        <file>qml/TodoItemForm.qml</file>
+        <file>qml/Filter.qml</file>
+        <file>qml/CustomCalendar.qml</file>
+    </qresource>
+</RCC>
