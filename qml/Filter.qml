@@ -13,7 +13,7 @@ Item {
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: 10
-            spacing: 20  // Increased spacing for better separation
+            spacing: 20
 
             // Filters Row
             RowLayout {
@@ -25,10 +25,15 @@ Item {
                     id: titleFilter
                     placeholderText: "Filter by title..."
                     Layout.preferredWidth: 200
+                    onEditingFinished: applyFilters()
                 }
                 Button {
-                    text: "X"
-                    onClicked: { titleFilter.text = ""; }
+                    icon.source: "/resources/icons/reset_icon.png"
+                    icon.color: "transparent"
+                    onClicked: {
+                        titleFilter.text = "";
+                        applyFilters()
+                    }
                     visible: titleFilter.text !== ""
                 }
 
@@ -37,10 +42,12 @@ Item {
                     id: descriptionFilter
                     placeholderText: "Filter by description..."
                     Layout.preferredWidth: 200
+                    onEditingFinished: applyFilters()
                 }
                 Button {
-                    text: "X"
-                    onClicked: { descriptionFilter.text = ""; }
+                    icon.source: "/resources/icons/reset_icon.png"
+                    icon.color: "transparent"
+                    onClicked: { descriptionFilter.text = ""; applyFilters(); }
                     visible: descriptionFilter.text !== ""
                 }
 
@@ -53,10 +60,12 @@ Item {
                     text: fromDate.isSelected ? fromDate.selectedDate.toLocaleDateString(Qt.locale(), "yyyy-MM-dd") : "Select from date"
                 }
                 Button {
-                    text: "X"
+                    icon.source: "/resources/icons/reset_icon.png"
+                    icon.color: "transparent"
                     onClicked: {
                         fromDate.selectedDate = new Date()
                         fromDate.isSelected = false
+                        applyFilters()
                     }
                     visible: fromDate.isSelected
                 }
@@ -70,10 +79,12 @@ Item {
                     text: toDate.isSelected ? toDate.selectedDate.toLocaleDateString(Qt.locale(), "yyyy-MM-dd") : "Select to date"
                 }
                 Button {
-                    text: "X"
+                    icon.source: "/resources/icons/reset_icon.png"
+                    icon.color: "transparent"
                     onClicked: {
                         toDate.selectedDate = new Date()
                         toDate.isSelected = false
+                        applyFilters()
                     }
                     visible: toDate.isSelected
                 }
@@ -86,16 +97,18 @@ Item {
                 }
                 Label {
                     id: statusIndicator
-                    text: statusIndicator.filterByStatus ? (statusIndicator.status ? "✅" : "❌") : "⚪" // Updated for clarity
+                    text: statusIndicator.filterByStatus ? (statusIndicator.status ? "✅" : "❌") : "⚪"
 
                     property bool filterByStatus: false
                     property bool status: false
                 }
                 Button {
-                    text: "X"
+                    icon.source: "/resources/icons/reset_icon.png"
+                    icon.color: "transparent"
                     onClicked: {
                         statusIndicator.filterByStatus = false
                         statusIndicator.text = "⚪"
+                        applyFilters()
                     }
                     visible: statusIndicator.filterByStatus
                 }
@@ -106,15 +119,9 @@ Item {
                 Layout.alignment: Qt.AlignHCenter
                 spacing: 10
 
-                // Apply Filters Button
-                Button {
-                    text: "Apply Filters"
-                    onClicked: applyFilters()
-                }
-
                 // Reset Filters Button
                 Button {
-                    text: "Reset Filters"
+                    text: "Reset All Filters"
                     onClicked: resetFilters()
                 }
             }
@@ -146,7 +153,6 @@ Item {
         statusIndicator.filterByStatus = false;
         statusIndicator.status = false;
 
-        // Assuming your model has a method to reset all filters
         todoListModel.resetFilterCriteria();
 
         console.log("Resetting filters...");
@@ -162,6 +168,7 @@ Item {
             onClicked: function(date) {
                 fromDate.selectedDate = date
                 fromDate.isSelected = true
+                applyFilters()
                 fromDatePopup.close();
             }
         }
@@ -177,6 +184,7 @@ Item {
             onClicked: function(date) {
                 toDate.selectedDate = date
                 toDate.isSelected = true
+                applyFilters()
                 toDatePopup.close();
             }
         }
@@ -198,6 +206,7 @@ Item {
                     statusIndicator.status = true
                     statusIndicator.filterByStatus = true
                     statusIndicator.text = "✅";
+                    applyFilters()
                     statusPopup.close();
                 }
             }
@@ -208,6 +217,7 @@ Item {
                     statusIndicator.status = false
                     statusIndicator.filterByStatus = true
                     statusIndicator.text = "🟡";
+                    applyFilters()
                     statusPopup.close();
                 }
             }

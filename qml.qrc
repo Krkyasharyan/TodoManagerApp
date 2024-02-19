@@ -5,5 +5,6 @@
         <file>qml/TodoItemForm.qml</file>
         <file>qml/Filter.qml</file>
         <file>qml/CustomCalendar.qml</file>
+        <file>resources/icons/reset_icon.png</file>
     </qresource>
 </RCC>
