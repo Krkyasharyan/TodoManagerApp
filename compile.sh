@@ -25,3 +25,5 @@ echo "Building project..."
 make -j$(nproc)
 
 echo "Build finished."
+
+./MyTodoListApp

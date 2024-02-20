@@ -18,7 +18,7 @@ Item {
 
         Filter {
             id: todoFilter
-            width: 800
+            width: 1080
             height: 120
             Layout.alignment: Qt.AlignHCenter
 
