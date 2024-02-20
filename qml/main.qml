@@ -50,6 +50,7 @@ ApplicationWindow {
                     text: "Save and quit"
                     onClicked: {
                         todoListModel.saveChanges();
+                        closing = true;
                         Qt.quit();
                     }
                 }

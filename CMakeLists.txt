@@ -3,7 +3,15 @@ cmake_minimum_required(VERSION 3.25)
 project(MyTodoListApp)
 
 # Find the necessary Qt packages
-set(Qt6_DIR "C:/Qt/6.6.1/mingw_64/lib/cmake")
+
+# if(WIN32)
+#     set(Qt6_DIR "C:/Qt/6.6.1/mingw_64/lib/cmake")
+# elseif(UNIX)
+#     set(CMAKE_PREFIX_PATH "/opt/Qt/6.6.2/gcc_64/lib/cmake")
+# else()
+#     message(FATAL_ERROR "Unsupported platform")
+# endif()
+
 find_package(Qt6 COMPONENTS Core Quick Qml Sql QuickDialogs2 REQUIRED)
 
 # Enable automatic MOC and RCC processing
